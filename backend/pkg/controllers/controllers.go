@@ -45,13 +45,13 @@ func CreateBook(c *gin.Context) {
 		return
 	}
 
-	// Ensure the ID is not manually set or passed by the frontend
+	
 	if book.ID != 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ID should not be set manually"})
 		return
 	}
 
-	// The database will automatically generate the ID
+	
 	if err := models.DB.Create(&book).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -105,7 +105,7 @@ func UpdateBook(c *gin.Context) {
 	book.Author = updatedBook.Author
 	book.Type = updatedBook.Type
 
-	// Save the updated book
+	
 	if err := models.DB.Save(&book).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update book"})
 		return
